@@ -47,7 +47,7 @@ variable "ssh_location" {
 }
 
 variable "database_snapshot_identifier" {
-  default = "arn:aws:rds:ap-southeast-1:181147970314:snapshot:snap01-web01-rds"
+  default = "arn:aws:rds:ap-southeast-1:181147970314:snapshot:web01-rds-bak"
   description = "SB Snapshot ARN"
   type = string
 }
@@ -71,7 +71,7 @@ variable "multi_az_deployment" {
 }
 
 variable "ssl_certificate_arn" {
-  default = "arn:aws:acm:ap-southeast-1:181147970314:certificate/4155eeb2-c936-4455-8620-b5fea8ea2fab"
+  default = "arn:aws:acm:ap-southeast-1:181147970314:certificate/6c16fa8f-8d72-4f03-b320-db616c9b2f35"
   description = "SSL Cert asfreeze.info"
   type = string
 }
@@ -79,5 +79,29 @@ variable "ssl_certificate_arn" {
 variable "client_email" {
   default = "uaungswan@gmail.com"
   description = "my email"
+  type = string
+}
+
+variable "launch_template_name" {
+  default = "web01-launch-template"
+  description = "name of launch template"
+  type = string
+}
+
+variable "ec2_image_id" {
+  default = "ami-001258b8337a4faed"
+  description = "my ami id"
+  type = string
+}
+
+variable "ec2_instance_type" {
+  default = "t2.micro"
+  description = "my ec2 type"
+  type = string
+}
+
+variable "ec2_ssh_key" {
+  default = "cfn-key-1"
+  description = "my ssh key"
   type = string
 }

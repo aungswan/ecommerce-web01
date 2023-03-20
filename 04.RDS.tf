@@ -8,23 +8,21 @@ resource "aws_db_subnet_group" "database_subnet_group" {
   }
 }
 
-# get the latest db snapshot
-# terraform aws data db snapshot
-data "aws_db_snapshot" "latest_db_snapshot" {
-  db_snapshot_identifier = var.database_snapshot_identifier
-  most_recent            = true
-  snapshot_type          = "manual"
-}
 
 # create database instance restored from db snapshots
 # terraform aws db instance
 resource "aws_db_instance" "database_instance" {
-  instance_class          = var.database_instance_class
-  skip_final_snapshot     = true
-  availability_zone       = "ap-southeast-1b"
-  identifier              = var.database_instance_identifier
-  snapshot_identifier     = data.aws_db_snapshot.latest_db_snapshot.id
-  db_subnet_group_name    = aws_db_subnet_group.database_subnet_group.name
-  multi_az                = var.multi_az_deployment
-  vpc_security_group_ids  = [aws_security_group.database_security_group.id]
-  }
+  engine = "mysql"
+  engine_version = "8.0.31"
+  multi_az = false
+  identifier = "web01-rds"
+  username = "opi"
+  password = "Abc123opi"
+  instance_class = "db.t2.micro"
+  allocated_storage = 30
+  db_subnet_group_name = aws_db_subnet_group.database_subnet_group.name
+  vpc_security_group_ids = [aws_security_group.database_security_group.id]
+  availability_zone = "ap-southeast-1b"
+  db_name = "ecommerce01"
+  skip_final_snapshot = true
+}
